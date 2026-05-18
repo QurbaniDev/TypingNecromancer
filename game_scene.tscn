@@ -1,0 +1,128 @@
+[gd_scene load_steps=10 format=3 uid="uid://cp7s0bxoregi6"]
+
+[ext_resource type="Texture2D" uid="uid://tdynip68sj3v" path="res://icon.svg" id="1_mlf6e"]
+[ext_resource type="Script" uid="uid://cgd1cpy8ih1ci" path="res://type.gd" id="2_po0ka"]
+[ext_resource type="Script" uid="uid://yd7pronah0ej" path="res://Spawn.gd" id="3_v1wow"]
+[ext_resource type="PackedScene" uid="uid://b5ip0p5xdoml0" path="res://enemy.tscn" id="4_mixcd"]
+[ext_resource type="Script" uid="uid://dquv2ndvrwk0p" path="res://restart.gd" id="5_mj2jn"]
+[ext_resource type="Script" uid="uid://hqtn3yhehx17" path="res://Timer.gd" id="6_kdryc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mlf6e"]
+size = Vector2(390, 20)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kdryc"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mj2jn"]
+bg_color = Color(0, 0.724557, 0.228848, 1)
+
+[node name="GameScene" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(4.9, 4.9)
+
+[node name="Icon" type="Sprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0.635)
+position = Vector2(5.72205e-06, -0.499999)
+scale = Vector2(2, 1.1)
+texture = ExtResource("1_mlf6e")
+
+[node name="Wall" type="RigidBody2D" parent="." node_paths=PackedStringArray("input", "failedscreen")]
+position = Vector2(0, -47)
+collision_layer = 2
+gravity_scale = 0.0
+freeze = true
+freeze_mode = 1
+contact_monitor = true
+max_contacts_reported = 5
+script = ExtResource("2_po0ka")
+input = NodePath("LineEdit")
+failedscreen = NodePath("../Failed Screen")
+
+[node name="Icon" type="Sprite2D" parent="Wall"]
+modulate = Color(2, 1.5, 0, 1)
+position = Vector2(0, -5.96046e-08)
+scale = Vector2(1.82812, 0.1)
+texture = ExtResource("1_mlf6e")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall"]
+visible = false
+scale = Vector2(0.6, 0.6)
+shape = SubResource("RectangleShape2D_mlf6e")
+
+[node name="LineEdit" type="LineEdit" parent="Wall"]
+offset_left = 40.0
+offset_top = 84.0
+offset_right = 398.0
+offset_bottom = 211.0
+scale = Vector2(0.2, 0.2)
+placeholder_text = "Type Here"
+clear_button_enabled = true
+text_direction = 1
+
+[node name="Label" type="Label" parent="Wall"]
+offset_left = 48.0
+offset_top = 75.0
+offset_right = 250.0
+offset_bottom = 98.0
+scale = Vector2(0.3, 0.3)
+
+[node name="ProgressBar" type="ProgressBar" parent="Wall"]
+offset_left = -19.0
+offset_top = -14.0
+offset_right = 175.0
+offset_bottom = 13.0
+scale = Vector2(0.2, 0.2)
+theme_override_styles/background = SubResource("StyleBoxFlat_kdryc")
+theme_override_styles/fill = SubResource("StyleBoxFlat_mj2jn")
+value = 100.0
+rounded = true
+
+[node name="Spawner1" type="Node2D" parent="."]
+position = Vector2(0, 75)
+script = ExtResource("3_v1wow")
+enemy_scene = ExtResource("4_mixcd")
+min_x = -100
+max_x = 100
+min_y = 0
+max_y = 0
+
+[node name="Failed Screen" type="Node2D" parent="."]
+visible = false
+
+[node name="Sprite2D" type="Sprite2D" parent="Failed Screen"]
+self_modulate = Color(1, 0, 0, 0.613)
+scale = Vector2(2, 1.125)
+texture = ExtResource("1_mlf6e")
+
+[node name="Label" type="Label" parent="Failed Screen"]
+offset_left = -79.0
+offset_top = -32.0
+offset_right = 93.0
+offset_bottom = 12.0
+theme_override_font_sizes/font_size = 30
+text = "YOU FAILED"
+
+[node name="Button" type="Button" parent="Failed Screen"]
+offset_left = -37.0
+offset_top = 8.0
+offset_right = 37.0
+offset_bottom = 36.0
+theme_override_font_sizes/font_size = 14
+text = "Restart"
+script = ExtResource("5_mj2jn")
+
+[node name="Time" type="Label" parent="."]
+offset_left = 79.0
+offset_top = -65.0
+offset_right = 117.0
+offset_bottom = -42.0
+scale = Vector2(0.4, 0.4)
+script = ExtResource("6_kdryc")
+
+[node name="Timer" type="Timer" parent="Time"]
+autostart = true
+
+[connection signal="body_entered" from="Wall" to="Wall" method="_on_body_entered"]
+[connection signal="pressed" from="Failed Screen/Button" to="Failed Screen/Button" method="_on_pressed"]
+[connection signal="timeout" from="Time/Timer" to="Time" method="_on_timer_timeout"]

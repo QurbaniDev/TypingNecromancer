@@ -1,0 +1,54 @@
+# Godot-specific ignores
+.import/
+.export/
+.export.cfg
+.mono/
+.mono/assemblies/
+.mono/temp/
+
+# Godot 4 cache
+.godot/
+.godot/editor/
+.godot/imported/
+
+# Exported builds
+build/
+bin/
+dist/
+
+# Logs
+*.log
+
+# Crash dumps
+*.dmp
+
+# OS junk
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor backups
+*~
+*.bak
+*.tmp
+
+# VS / Rider / VSCode (because of course)
+.vs/
+.vscode/
+.idea/
+
+# C# build artifacts (if using Godot Mono)
+**/bin/
+**/obj/
+
+# JetBrains Rider Godot plugin cache
+.idea/.godot/
+
+# Python / tooling junk if you have scripts
+__pycache__/
+*.pyc
+
+# Compiled binaries
+*.exe
+*.apk
+*.pck
