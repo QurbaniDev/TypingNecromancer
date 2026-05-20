@@ -1,0 +1,66 @@
+[gd_scene load_steps=5 format=3 uid="uid://bkg38qhjwbwky"]
+
+[ext_resource type="Texture2D" uid="uid://tdynip68sj3v" path="res://icon.svg" id="1_uubjt"]
+[ext_resource type="Script" uid="uid://dquv2ndvrwk0p" path="res://Scripts/Scene_Controller.gd" id="2_5yleq"]
+[ext_resource type="FontFile" uid="uid://bkjiigksgwi1b" path="res://Fonts/Dogica Pixel Font/TTF/dogicapixelbold.ttf" id="2_ylpcl"]
+[ext_resource type="FontFile" uid="uid://dn1hyov218tnx" path="res://Fonts/Dogica Pixel Font/TTF/dogicapixel.ttf" id="4_cx167"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(4.9, 4.9)
+
+[node name="Icon" type="Sprite2D" parent="."]
+self_modulate = Color(0.305234, 0.315318, 0.291331, 1)
+position = Vector2(5.72205e-06, -0.499999)
+scale = Vector2(2, 1.1)
+texture = ExtResource("1_uubjt")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -134.0
+offset_top = -54.0
+offset_right = 277.0
+offset_bottom = -9.0
+scale = Vector2(0.665, 0.665)
+theme_override_fonts/font = ExtResource("2_ylpcl")
+theme_override_font_sizes/font_size = 24
+text = "Typing 
+Necromancer"
+horizontal_alignment = 1
+
+[node name="Level 1" type="Button" parent="Label"]
+offset_left = 151.88
+offset_top = 69.1729
+offset_right = 245.88
+offset_bottom = 97.1729
+scale = Vector2(1.06, 0.757)
+theme_override_fonts/font = ExtResource("4_cx167")
+theme_override_font_sizes/font_size = 16
+text = "Level 1"
+script = ExtResource("2_5yleq")
+
+[node name="Level 2" type="Button" parent="Label"]
+offset_left = 151.88
+offset_top = 100.917
+offset_right = 245.88
+offset_bottom = 128.917
+scale = Vector2(1.06, 0.757)
+theme_override_fonts/font = ExtResource("4_cx167")
+theme_override_font_sizes/font_size = 16
+text = "Level 2"
+script = ExtResource("2_5yleq")
+
+[node name="Level 3" type="Button" parent="Label"]
+offset_left = 151.88
+offset_top = 133.835
+offset_right = 245.88
+offset_bottom = 161.835
+scale = Vector2(1.06, 0.757)
+theme_override_fonts/font = ExtResource("4_cx167")
+theme_override_font_sizes/font_size = 16
+text = "Level 3"
+script = ExtResource("2_5yleq")
+
+[connection signal="pressed" from="Label/Level 1" to="Label/Level 1" method="_on_level_1_pressed"]
+[connection signal="pressed" from="Label/Level 2" to="Label/Level 2" method="_on_level_2_pressed"]
+[connection signal="pressed" from="Label/Level 3" to="Label/Level 3" method="_on_level_3_pressed"]

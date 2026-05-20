@@ -1,7 +1,7 @@
 extends RigidBody2D
 
 var new_word : String
-var characters = "abcdefghijklmnopqrstuvwxyz"
+var characters = "abcdefghijklmnopqrstuvwxyz1234567890"
 var Health := 100
 
 @export var input : LineEdit

@@ -9,5 +9,4 @@ func _process(delta):
 func _on_body_entered(body: Node) -> void:
 	Hit = true
 	if Hit == true:
-		await get_tree().create_timer(5).timeout
 		queue_free()

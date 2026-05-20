@@ -1,11 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://cp7s0bxoregi6"]
+[gd_scene load_steps=12 format=3 uid="uid://cwnt8uiy5k6wo"]
 
-[ext_resource type="Texture2D" uid="uid://tdynip68sj3v" path="res://icon.svg" id="1_mlf6e"]
-[ext_resource type="Script" uid="uid://cgd1cpy8ih1ci" path="res://type.gd" id="2_po0ka"]
-[ext_resource type="Script" uid="uid://yd7pronah0ej" path="res://Spawn.gd" id="3_v1wow"]
-[ext_resource type="PackedScene" uid="uid://b5ip0p5xdoml0" path="res://enemy.tscn" id="4_mixcd"]
-[ext_resource type="Script" uid="uid://dquv2ndvrwk0p" path="res://restart.gd" id="5_mj2jn"]
-[ext_resource type="Script" uid="uid://hqtn3yhehx17" path="res://Timer.gd" id="6_kdryc"]
+[ext_resource type="Texture2D" uid="uid://tdynip68sj3v" path="res://icon.svg" id="1_5bimo"]
+[ext_resource type="Script" uid="uid://celvtbbk8hy3j" path="res://Scripts/level3.gd" id="2_5bimo"]
+[ext_resource type="Script" uid="uid://yd7pronah0ej" path="res://Scripts/Spawn.gd" id="3_v4u5w"]
+[ext_resource type="PackedScene" uid="uid://b5ip0p5xdoml0" path="res://enemy.tscn" id="4_ymluh"]
+[ext_resource type="Script" uid="uid://dquv2ndvrwk0p" path="res://Scripts/Scene_Controller.gd" id="5_3bt5s"]
+[ext_resource type="Script" uid="uid://hqtn3yhehx17" path="res://Scripts/Timer.gd" id="6_0q43e"]
+[ext_resource type="FontFile" uid="uid://bkjiigksgwi1b" path="res://Fonts/Dogica Pixel Font/TTF/dogicapixelbold.ttf" id="7_v4u5w"]
+[ext_resource type="FontFile" uid="uid://dn1hyov218tnx" path="res://Fonts/Dogica Pixel Font/TTF/dogicapixel.ttf" id="8_ymluh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mlf6e"]
 size = Vector2(390, 20)
@@ -25,7 +27,7 @@ zoom = Vector2(4.9, 4.9)
 self_modulate = Color(1, 1, 1, 0.635)
 position = Vector2(5.72205e-06, -0.499999)
 scale = Vector2(2, 1.1)
-texture = ExtResource("1_mlf6e")
+texture = ExtResource("1_5bimo")
 
 [node name="Wall" type="RigidBody2D" parent="." node_paths=PackedStringArray("input", "failedscreen")]
 position = Vector2(0, -47)
@@ -35,15 +37,15 @@ freeze = true
 freeze_mode = 1
 contact_monitor = true
 max_contacts_reported = 5
-script = ExtResource("2_po0ka")
+script = ExtResource("2_5bimo")
 input = NodePath("LineEdit")
 failedscreen = NodePath("../Failed Screen")
 
 [node name="Icon" type="Sprite2D" parent="Wall"]
-modulate = Color(2, 1.5, 0, 1)
+modulate = Color(1.5, 1.5, 17.679, 1)
 position = Vector2(0, -5.96046e-08)
 scale = Vector2(1.82812, 0.1)
-texture = ExtResource("1_mlf6e")
+texture = ExtResource("1_5bimo")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Wall"]
 visible = false
@@ -80,12 +82,13 @@ rounded = true
 
 [node name="Spawner1" type="Node2D" parent="."]
 position = Vector2(0, 75)
-script = ExtResource("3_v1wow")
-enemy_scene = ExtResource("4_mixcd")
+script = ExtResource("3_v4u5w")
+enemy_scene = ExtResource("4_ymluh")
 min_x = -100
 max_x = 100
 min_y = 0
 max_y = 0
+spawn_interval = 1.0
 
 [node name="Failed Screen" type="Node2D" parent="."]
 visible = false
@@ -93,7 +96,7 @@ visible = false
 [node name="Sprite2D" type="Sprite2D" parent="Failed Screen"]
 self_modulate = Color(1, 0, 0, 0.613)
 scale = Vector2(2, 1.125)
-texture = ExtResource("1_mlf6e")
+texture = ExtResource("1_5bimo")
 
 [node name="Label" type="Label" parent="Failed Screen"]
 offset_left = -79.0
@@ -110,7 +113,7 @@ offset_right = 37.0
 offset_bottom = 36.0
 theme_override_font_sizes/font_size = 14
 text = "Restart"
-script = ExtResource("5_mj2jn")
+script = ExtResource("5_3bt5s")
 
 [node name="Time" type="Label" parent="."]
 offset_left = 79.0
@@ -118,11 +121,67 @@ offset_top = -65.0
 offset_right = 117.0
 offset_bottom = -42.0
 scale = Vector2(0.4, 0.4)
-script = ExtResource("6_kdryc")
+script = ExtResource("6_0q43e")
 
 [node name="Timer" type="Timer" parent="Time"]
 autostart = true
 
+[node name="Pause" type="Node2D" parent="."]
+process_mode = 4
+visible = false
+
+[node name="Sprite2D" type="Sprite2D" parent="Pause"]
+self_modulate = Color(0.28, 0.34, 0.202, 1)
+scale = Vector2(2, 1.125)
+texture = ExtResource("1_5bimo")
+
+[node name="Label" type="Label" parent="Pause"]
+offset_left = -97.0
+offset_top = -44.0
+offset_right = 99.0
+theme_override_fonts/font = ExtResource("7_v4u5w")
+theme_override_font_sizes/font_size = 32
+text = "PAUSED"
+
+[node name="MenuButton" type="Button" parent="Pause"]
+offset_left = -35.0
+offset_top = 5.0
+offset_right = 107.0
+offset_bottom = 41.0
+scale = Vector2(0.485, 0.54)
+theme_override_fonts/font = ExtResource("8_ymluh")
+theme_override_font_sizes/font_size = 32
+text = "Menu"
+script = ExtResource("5_3bt5s")
+
+[node name="Restart" type="Button" parent="Pause"]
+offset_left = -47.88
+offset_top = 31.85
+offset_right = 144.12
+offset_bottom = 67.85
+scale = Vector2(0.485, 0.54)
+theme_override_fonts/font = ExtResource("8_ymluh")
+theme_override_font_sizes/font_size = 32
+text = "Restart"
+script = ExtResource("5_3bt5s")
+
+[node name="Button" type="Button" parent="." node_paths=PackedStringArray("PauseScreen")]
+process_mode = 3
+offset_left = -106.0
+offset_top = -64.0
+offset_right = -74.0
+offset_bottom = -35.0
+scale = Vector2(0.275, 0.275)
+theme_override_fonts/font = ExtResource("7_v4u5w")
+theme_override_font_sizes/font_size = 24
+toggle_mode = true
+text = "||"
+script = ExtResource("5_3bt5s")
+PauseScreen = NodePath("../Pause")
+
 [connection signal="body_entered" from="Wall" to="Wall" method="_on_body_entered"]
 [connection signal="pressed" from="Failed Screen/Button" to="Failed Screen/Button" method="_on_pressed"]
 [connection signal="timeout" from="Time/Timer" to="Time" method="_on_timer_timeout"]
+[connection signal="pressed" from="Pause/MenuButton" to="Pause/MenuButton" method="MenuButton_on_pressed"]
+[connection signal="pressed" from="Pause/Restart" to="Pause/Restart" method="_on_pressed"]
+[connection signal="toggled" from="Button" to="Button" method="pause_on_toggled"]

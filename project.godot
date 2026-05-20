@@ -11,13 +11,13 @@ config_version=5
 [application]
 
 config/name="Typing Necromancer"
-run/main_scene="uid://cp7s0bxoregi6"
+run/main_scene="uid://bkg38qhjwbwky"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
-Global="*res://Global.gd"
+Global="*res://Scripts/Global.gd"
 
 [dotnet]
 
